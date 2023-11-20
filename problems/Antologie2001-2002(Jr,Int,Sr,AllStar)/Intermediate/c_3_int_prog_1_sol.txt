@@ -1,0 +1,55 @@
+{ Sean Henderson, Woburn CI    }
+{ ACSL Intermediate, Contest 3 }
+
+program palindrome;
+
+var
+   inp, outp : text;
+   n1, n2, s : string;
+   b : byte;
+   t : integer;
+
+procedure add(n1, n2 : string; var n3 : string);
+   var
+      i, c : byte;
+   begin
+      c := 0;
+      n3 := '';
+      for i := 1 to length(n1) do begin
+         inc(c, ord(n1[i]) + ord(n2[i]) - 96);
+         n3 := concat(n3, chr(c mod b + 48));
+         c := c div b;
+      end;
+      if c > 0 then n3 := concat(n3, chr(c + 48));
+   end;
+
+procedure reverse(var n1, n2 : string);
+   var
+      i : byte;
+   begin
+      n2 := '';
+      for i := 1 to length(n1) do
+         n2 := concat(n1[i], n2);
+   end;
+
+begin
+   assign(inp, 'acsl.in'); reset(inp);
+   assign(outp, 'acsl.out'); rewrite(outp);
+   while not eof(inp) do begin
+      readln(inp, s);
+      n1 := copy(s, 1, pos(' ', s) - 1);
+      delete(s, 1, pos(' ', s));
+      val(s, b, t);
+      reverse(n1, n2);
+      while not (n1 = n2) and (t < 10) do begin
+         add(n1, n2, n1);
+         reverse(n1, n2);
+         inc(t);
+      end;
+      if not (n1 = n2) then write(outp, 'NONE, ');
+      writeln(outp, n2);
+   end;
+   close(inp);
+   close(outp);
+end.
+

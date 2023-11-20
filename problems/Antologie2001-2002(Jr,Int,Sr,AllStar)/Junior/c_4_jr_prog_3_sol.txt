@@ -1,0 +1,47 @@
+//bill hamilton, Rockport Fulton High School, Rockport, Texas
+//acsl #4 junior, hairy conic junior
+//4/05/02
+
+#include<iostream.h>
+#include<conio.h>
+#include<iomanip.h>
+#include<apstring.h>
+#include<ctype.h>
+#include<math.h>
+
+void main()
+{
+  clrscr();
+  for (int x=0;x<5;x++)
+  {
+    long float a,b,c,d,e,f,h,k;
+    cout<<"Enter A,B,C,D,E,F:";
+    cin>>a>>b>>c>>d>>e>>f;
+    if (a==c)
+      cout<<"Circle"<<endl;
+    else
+      cout<<"Elipse"<<endl;
+    h=0-((d)/(2*a));
+    k=0-((e)/(2*c));
+    cout<<"The center is: "<<h<<","<<k;
+    if (c==a) {
+      h=sqrt((-4*a*f)+d*d+e*e)/(2*a);
+      cout<<endl<<"The radius is: "<<h<<endl<<endl;
+    }
+    else {
+      h=2*sqrt((-4*a*c*f+c*d*d+a*e*e)/(4*a*c*c));
+      k=2*sqrt((-4*a*c*f+c*d*d+a*e*e)/(4*a*a*c));
+      if (h>k)
+        cout<<endl<<"The major axis is: "<<h<<endl<<endl;
+      else
+        cout<<endl<<"The major axis is: "<<k<<endl<<endl;
+    }
+  }
+  getch();
+}
+
+
+
+
+
+

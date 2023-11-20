@@ -1,0 +1,87 @@
+{Allan Lin
+ Woburn C.I.
+ Intermediate Division}
+
+
+uses crt;
+var
+   s:string;
+   i,num,neg,count :integer;
+   a,b,c,d,e :longint;
+   p,r1,r2,r3,x,y:real;
+   fin           :text;
+
+{===================================================================}
+function con:integer;
+var temp:integer;
+begin
+  if(num > 0)then temp:=num
+  else temp:=1;
+  if(neg=1)then temp:=temp*(-1);
+  neg:=0;num:=0;
+  con:=temp;
+end;
+
+{===================================================================}
+begin
+  clrscr;
+
+assign(fin,'acsl.in');
+reset(fin);
+
+for count:=1 to 5 do
+begin
+  {Reset}
+  a:=0;  b:=0;  c:=0;  d:=0;  e:=0;
+  p:=0;r1:=0;r2:=0;r3:=0;x:=0;y:=0;
+  num:=0;neg:=0;
+  i:=1;s:='';
+  {Get information}
+  readln(fin,s);
+   while(i<length(s))do
+      begin
+         if(s[i] = '-')then neg:=1;
+         if(s[i] in ['0'..'9'])then
+              num:=num*10 +  ord(s[i])-48;
+         if(s[i] = 'x')then
+             begin
+               if(s[i+1]='^')then
+                 begin
+                   a:=con;
+                   inc(i,2);
+                 end
+               else
+                 c:=con;
+             end;
+         if(s[i] = 'y')then
+             begin
+               if(s[i+1]='^')then
+                 begin
+                   b:=con;
+                   inc(i,2);
+                 end
+               else
+                d:=con;
+             end;
+         if(s[i]= '=')then
+             e:=con;
+         inc(i);
+      end;
+  {Work out}
+     p:= ((c*c)/(4*a)) + ((d*d)/(4*b)) - e;
+     x:=(-1)*(c/(2*a));
+     y:=(-1)*(d/(2*b));
+     r1:=p/a;
+     r2:=p/b;
+     if(r1>r2)then r3:=r1
+     else r3:=trunc(r2);
+     r3:=trunc(sqrt(r3));
+  {output}
+      if a=b then writeln('Circle,(',x:0:3,',',y:0:3,'),',r3:0:3)
+      else writeln('Ellipse,'  ,'(',x:0:3,',',y:0:3,'),',(2*r3):0:3);
+end;
+close(fin);
+readln;
+end.
+
+

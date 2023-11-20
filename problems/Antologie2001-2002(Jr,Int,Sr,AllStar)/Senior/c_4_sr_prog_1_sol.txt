@@ -1,0 +1,133 @@
+// Eric Brumer
+// Senior 3
+// Lower Canada College
+
+#include <iostream.h>
+#include <stdlib.h>
+#include <math.h>
+#include "apstring.h"
+
+double findme(char find[], apstring data)
+{       
+    double b;
+    int x;
+    char tempy2[10];
+    apstring tempy;
+    int temp = data.find(find);
+    if (temp==-1) 
+        b=0;
+    else
+    {       
+        tempy = data.substr(0,temp);
+        for (x=0; x<tempy.length(); x++) 
+            tempy2[x]=tempy[x];
+        b = atof(tempy2);
+        if (data[0]=='x' || data[0]=='y') 
+            b=1;
+        if (data[0]=='-' && (data[1]=='y' || data[1]=='x')) 
+            b=-1;
+        if (data[0]=='+' && (data[1]=='y' || data[1]=='x')) 
+            b=1;
+    }
+    return b;
+}
+
+void main()
+{       
+    apstring data;
+    double a,c,d,e,f,temp2;
+    int runtime,x;
+    char tempy22[10];
+
+    for (runtime=0; runtime<5; runtime++)
+    {       
+        cin>>data;
+        a = findme("x^2", data);
+        temp2 = data.find("x^2");
+        if (temp2==-1) 
+            temp2=-3;
+        data=data.substr(int(temp2+3),data.length());
+        
+        c = findme("y^2", data);
+        temp2 = data.find("y^2");
+        if (temp2==-1) 
+            temp2=-3;
+        data=data.substr(int(temp2+3),data.length());
+        
+        d = findme("x", data);
+        temp2 = data.find("x");
+        data=data.substr(int(temp2+1),data.length());
+        
+        e = findme("y", data);
+        temp2 = data.find("y");
+        data=data.substr(int(temp2+1),data.length());
+
+        temp2 = data.find("=");
+        for (x=0; x<data.length(); x++) {
+            tempy22[x]=data[x];
+        }
+        f = atof(tempy22);
+
+        bool circle=false, ellipse=false, parabola=false, hyperbola=false;
+        if (a==c) { 
+            cout<<"Circle,"; circle=true; 
+        }
+        else if ( (a!=c) && ( (a>0 && c>0) || (a<0 && c<0) ) ) { 
+            cout<<"Ellipse,"; ellipse=true; 
+        }
+        else if (a==0 || c==0) { 
+            cout<<"Parabola,"; parabola=true; 
+        }
+        else if ( (a>0 && c<0) || (a<0 && c>0) ) { 
+            cout<<"Hyperbola,"; hyperbola=true; 
+        }
+
+        if (parabola)
+        {       
+            double par,par2;
+            if (c==0)
+            {       
+                par = -1*d/(a*2);
+                cout<<"("<<par<<",";
+                par2 = -1*a*par*par/e + -1*d*par/e + -1*f/e;
+                cout<<par2<<"), x=";
+                cout<<par;
+            }
+            else // a==0
+            {       
+                par = -1*(e/c)/2;
+                if (d==0)  
+                    par2=0;
+                else 
+                    par2 = -1*c*par*par/d + -1*e*par/d + -1*f/d;
+                cout<<"("<<par2<<",";
+                cout<<par<<"), y=";
+                cout<<par;
+            }
+        }
+
+        if (hyperbola) {
+            if (c<0) 
+                cout<< "(" << -1*d/(2*a) << "," << -1*e/(2*c) << "), y=" << -1*e/(2*c);
+            else if (c>0)  
+                cout<<"("<< -1*d/(2*a) << ","<<-1*e/(2*c)<<"), x="<<-1*d/(2*a);
+        }
+
+        if (circle) {
+            cout<<"("<< -1*d/(2*a)<<","<<-1*e/(2*a)<<"),"<<sqrt(-1*f/a + (d/(2*a))*(d/(2*a)) + (e/(2*a))*(e/(2*a)));
+        }
+
+        if (ellipse) {
+            cout<<"("<< -1*d/(2*a) <<","<<-1*e/(2*c)<<"),";
+            double ell, ell2;
+            ell = ( (-4*f*a*c) + (d*d*c) + (e*e*a) ) / (4*a*a*c);
+            ell2 = ( (-4*f*a*c) + (d*d*c) + (e*e*a) ) / (4*a*c*c);
+            if (ell>ell2) 
+                cout<<2*sqrt(ell);
+            else 
+                cout<<2*sqrt(ell2);
+        }
+        cout<<endl;
+    }
+}
+

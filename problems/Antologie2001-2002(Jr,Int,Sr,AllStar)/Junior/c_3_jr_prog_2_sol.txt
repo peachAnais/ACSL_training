@@ -1,0 +1,47 @@
+//	Rachel Miller		
+//	Thomas Jefferson High School for Science and Technology
+//	Junior Contest # 3
+//	4 March 02
+
+#include <iostream.h>
+#include <conio.h>
+
+   long reverse(long num)
+   {
+      long total=0;
+      while (num>0)
+      {
+         total*=10;
+         total+=num%10;
+         num/=10;
+      }
+      return total;
+   }
+   long palindrome(long num)
+   {
+      if (reverse(num)==num)
+         return 1;
+      return 0;
+   }
+
+   void main()
+   {
+    //clrscr();
+      long num; //the input
+      int runs=0;
+      for (int runfive=0; runfive<6; runfive++)
+      {
+         cout << "enter num: ";
+         cin >> num;
+         runs=0;
+         while (runs<10 && !palindrome(num))
+         {
+            num+=reverse(num);
+            runs++;
+         }
+         if (palindrome(num)) cout << num <<endl;
+         else cout << "NONE, " << num << endl;
+      }
+      getch();
+   }
+

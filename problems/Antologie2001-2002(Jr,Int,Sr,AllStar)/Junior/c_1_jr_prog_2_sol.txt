@@ -1,0 +1,80 @@
+//Jeff Selby
+//Junior Level
+//Cypress Falls High School
+
+#include <conio.h>
+#include <iostream.h>
+#include <ctype.h>
+#include <math.h>
+ 
+void input(char &cha);
+void process(char &cha);
+void output(char cha);
+
+int main()
+{
+ for (int x=1; x<6; x++)
+  {
+   char cha;
+   input(cha);
+   process(cha);
+   output(cha);
+   getch();
+  }
+}
+
+void input(char &cha)
+ {
+  cout<<"INPUT:  ";
+  cin>>cha;
+  cha=toupper(cha);
+ }
+
+void process(char &cha)
+ {
+  int chn, xt;
+  chn=int(cha)-64;
+  if(chn <= 5)   //A-E
+   chn=chn*2;
+  else if (chn > 5 && chn <= 10)  //F-J
+   chn=(chn%3)*5;
+  else if (chn > 10 && chn <= 15) //K-0
+   chn=(chn/4)*8;
+  else if (chn >15 && chn <= 20)  //P-T
+   {
+    xt=floor(chn/10);
+    if (chn >= 20)
+     chn=chn-20;
+    else
+     chn=chn-10;
+    chn=(chn+xt)*10;
+   }
+  else
+   {
+    switch (chn)
+     {
+      case 21: chn=7; break;  //U
+      case 22: chn=11; break; //V
+      case 23: chn=1; break;  //W
+      case 24: chn=12; break; //X
+      case 25: chn=5; break;  //Y
+      case 26: chn=13; break; //Z
+     }
+    chn=chn*12;
+   }
+  while (chn > 26)
+   {
+   chn=chn-26;
+   }
+  chn=chn+64;
+  if (chn==64)
+   chn=35;
+  cha=char(chn);
+ }
+
+void output(char cha)
+ {
+  cout<<"OUTPUT: "<<cha<<endl<<endl;
+ }
+
+

@@ -1,0 +1,113 @@
+{
+	Domagoj Vrgoc
+	XV.Gimnazija
+	Senior Division
+	Contest4
+}
+
+uses crt;
+var i,j:integer;
+    a,b,c,d,e,f,err,t,sx,sy,r,min,ind:integer;
+    izraz,s:string;
+
+    procedure parse(var nr,pos:integer);
+    var s:string;p:integer;
+    begin
+
+               s:='';
+               p:=pos;
+               if p=1 then nr:=1 else begin
+
+               while (1=1) do begin
+                     dec(p);
+                     s:=izraz[p]+s;
+                     if p=1 then break;
+                     if (izraz[p]='+')or(izraz[p]='-') then break;
+               end;
+
+               if s='-' then nr:=-1;
+               if (s='+') then nr:=1;
+               if (s<>'-')and(s<>'+') then val(s,nr,err);
+
+               end;
+
+    end;
+begin
+{clrscr;}
+for ind:=1 to 5 do begin
+a:=0;b:=0;c:=0;d:=0;e:=0;f:=0;min:=0;r:=0;sx:=0;sy:=0;
+write('Input:');readln(izraz);
+
+     for i:=1 to length(izraz) do begin
+         if (izraz[i]='x')and(izraz[i+1]='^')and(izraz[i+2]='2') then parse(a,i);
+         if (izraz[i]='x')and(izraz[i+1]<>'^') then parse(d,i);
+         if (izraz[i]='y')and(izraz[i+1]='^')and(izraz[i+2]='2') then parse(c,i);
+         if (izraz[i]='y')and(izraz[i+1]<>'^') then parse(e,i);
+         if (izraz[i]='x')and(izraz[i+1]='y') then parse(b,i);
+         if (izraz[i]='=') then parse(f,i);
+     end;
+
+     s:='';
+     for i:=pos('=',izraz)+1 to length(izraz) do
+         s:=s+izraz[i];
+
+     val(s,t,err);
+
+     f:=-f-t;
+
+{writeln(a,' ',b,' ',c,' ',d,' ',e,' ',f);}
+
+            if (a=c)and(b=0) then begin{Circle !!!}
+               write('Circle,(');
+               sx:=-( d div(a*2));
+               sy:=-( e div(c*2));
+               r:=round(sqrt(sx*sx+sy*sy+abs(f)));
+               write(sx,',',sy,'),',r);
+            end;
+
+            if (a<>c)and(((a>0) and(c>0)) or ((a<0) and(c<0))) then begin{Ellipse}
+               write('Ellipse,(');
+               sx:=-( d div(a*2));
+               sy:=-( e div(c*2));
+               r:=round((a*sx*sx+c*sy*sy-abs(f)));
+               if a>c then min:=c else min:=a;
+               r:=round(sqrt(r/min))*2;
+               write(sx,',',sy,'),',r);
+            end;
+
+            if (a=0)or(c=0) then begin {PArabola}
+               write('Parabola,(');
+               if a=0 then begin
+                  sy:=-( e div(c*2));
+                  f:=f+c*sy*sy;
+                  sx:=(f div d);
+                  write(sx,',',sy,'),',sy);
+               end;
+
+               if c=0 then begin
+                  sx:=-( d div(a*2));
+                  f:=f+a*sx*sx;
+                  sy:=(f div e);
+                  write(sx,',',sy,'),',sx);
+               end;
+
+            end;
+
+            if ((a>0)and(c<0))or((a<0)and(c>0)) then begin{Hyperbola}
+               write('Hyperbola,(');
+
+               sx:=-( d div(a*2));
+               sy:=-( e div(c*2));
+
+               if a>0 then r:=sy else r:=sx;
+
+               write(sx,',',sy,'),',r);
+
+            end;
+writeln;
+end;
+readkey;
+end.
+
+
+

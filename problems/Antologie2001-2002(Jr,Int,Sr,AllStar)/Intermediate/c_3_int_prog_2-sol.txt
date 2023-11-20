@@ -1,0 +1,132 @@
+/* Author:	 Theodore Huang													*/
+/*			 Whitney Young High School 										*/
+/*			 Division #331		       										*/
+/* Date:	 3/1/02							      	        			    */
+/* Platform: Microsoft Visual C++						        		    */
+/* Title:	 Palindrome - ACSL Contest #3 Intermediate Division				*/
+/* Summary:  Adds input integer with its reverse and repeats until a		*/
+/*			 palindrome is obtained and returned.							*/
+/****************************************************************************/
+/*				Header Files										   		*/
+/****************************************************************************/
+#include <iostream.h>
+#include <math.h>
+#include <ctype.h>
+#include<conio.h>
+/****************************************************************************/
+/*				Global Declarations											*/
+/****************************************************************************/
+const int ENTER = 0xD;
+/****************************************************************************/
+/*			  	Prototypes													*/
+/****************************************************************************/
+void inputinfo(long &number, int &base);
+int ispalindrome(long number);
+long find_palindrome(long number, int base, int &none);
+long reverse_number(long number);
+long add(long number, int base);
+/****************************************************************************/
+/*			    Main														*/
+/****************************************************************************/
+void main()
+{	long number, palindrome;
+	int base, none, index;
+	for(index=1; index<=5;index++)
+	{	cout<<"Input "<<index<<":"<<endl;
+		inputinfo(number, base);
+		cout<<endl;
+		none = 0;
+		palindrome = find_palindrome(number, base, none);
+		if (none)
+			cout<<"NONE.  The 10th addition is "<<palindrome<<endl;
+		else
+			cout<<"The palindrome is "<<palindrome<<endl;
+	}
+	getch();
+}
+
+/*	Task: Gets the number and the base.										*/
+void inputinfo(long &number, int &base)
+{	char character;
+	int flag=0;
+	number=0;
+	base=0;
+	while ((character=getche())!=ENTER)
+	{	if(!(isdigit(character)))
+			flag = 1;
+		if((flag==1)&&(isdigit(character)))
+		{	base*=10;
+			base+=character-0x30;
+		}
+		if(flag==0)
+		{	number*=10;
+			number+=character-0x30;
+		}
+	}
+}
+/*Task:Finds the palindrome created by adding reverses, or stops if it can't*/
+/*	   after 10 additions and reversals.									*/
+long find_palindrome(long number, int base, int &none)
+{	int count = 1;
+	while ((!(ispalindrome(number)))&&(count<=10))
+	{	number = add(number, base);
+		count++;
+	}
+	if(((!(ispalindrome(number)))&&(count=10)))
+		none=1;
+	return number;
+}
+/*	   Task: Determines if number is a palindrome.							*/
+int ispalindrome(long number)
+{	int digits=0, index, index2, flag=1;
+	long temp = number, divisor;
+	while (temp)
+	{	digits++;						//number of digits
+		temp/=10;
+	}
+	index2 = digits-1;
+	temp = number;
+	for(index=1; index<=digits/2; index++)		//if is palindrome
+	{	divisor = pow(10,index2);
+		if(!((temp%10)==(number/divisor)))
+			flag = 0;
+		index2--;
+		temp/=10;
+		number=number%divisor;
+	}
+	return flag;
+}
+/*	   Task: Reverses the number.											*/
+long reverse_number(long number)
+{	long reverse=0, temp = number;
+	int digits=0, index;
+	while (temp)
+	{	digits++;					
+		temp/=10;
+	}
+	for(index=1;index<=digits;index++)
+	{	reverse*=10;
+		reverse+=number%10;
+		number/=10;
+	}	
+	return reverse;
+	
+}
+/*	   Task: Adds number with its reverse.									*/
+long add(long number, int base)
+{	long reverse = reverse_number(number), sum = 0, temp = number, multiplier;
+	int digits=0, index, carry=0;
+	while (temp)
+	{	digits++;					
+		temp/=10;
+	}
+	for(index=1; index<=digits+1;index++)
+	{	multiplier = pow(10, index-1);
+		sum+=(((carry + number%10 + reverse%10)%base)*multiplier);
+		carry=((carry + number%10 + reverse%10)/base);
+		number/=10;
+		reverse/=10;
+	}
+	return sum;
+}
+

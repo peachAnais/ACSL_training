@@ -1,0 +1,75 @@
+// Finds the Best Move in a Checkers situation
+// By Matthew Hofmann
+// Barrington, RI --- Senior 3 Division --- Contest #2
+
+#include <iostream.h>
+#include <apmatrix.h>
+  
+int findjumps(apmatrix<int> board, int type, int r, int c);
+
+int main()
+{
+	int i, j, numpieces, r, c, maxjumps, jumps;
+	apmatrix<int> board(8,8);
+	for(int t = 0; t < 5; t++)	{
+		for(i = 0; i < 8; i++)		
+			for(j = 0; j < 8; j++) 
+				board[i][j] = 0;	// Clear board...
+		for(j = 2; j > 0; j--) {	
+			cin >> numpieces;
+			for(i = 0; i < numpieces; i++) {
+				cin >> r >> c;		// input
+				board[r-1][c-1] = j;	}
+		}
+		maxjumps = 0;
+		for(i = 0; i < 8; i++) 
+			for(j = 0; j < 8; j++) 
+				if(board[i][j] == 2) {
+					jumps = findjumps(board, 2, i, j);
+					if(jumps > maxjumps) maxjumps = jumps;
+				}	
+		cout << "MAX JUMPS: " << maxjumps << endl;
+	}
+	return 0;
+}
+int findjumps(apmatrix<int> board, int type, int r, int c)
+{
+	board[r][c] = 0;
+	int maxj, j;
+	maxj = 0;
+	if(r == 7) type = 3;
+	if(r<=5 && c>=2 && board[r+1][c-1] == 1 && board[r+2][c-2] == 0) { // up + left
+		board[r+1][c-1] = 0;
+		j = 1 + findjumps(board, type, r+2, c-2);
+		if(j > maxj) maxj = j;
+	}
+	if(r<=5 && c<=5 && board[r+1][c+1] == 1 && board[r+2][c+2] == 0) { // up + right
+		board[r+1][c+1] = 0;
+		j = 1 + findjumps(board, type, r+2, c+2);
+		if(j > maxj) maxj = j;
+	}
+	if(type == 3) { // if a king, do additional checks backwards
+		if(r>=2 && c>=2 && board[r-1][c-1] == 1 && board[r-2][c-2] == 0) { // down + left
+			board[r-1][c-1] = 0;
+			j = 1 + findjumps(board, type, r-2, c-2);
+			if(j > maxj) maxj = j;
+		}
+		if(r>=2 && c<=5 && board[r-1][c+1] == 1 && board[r-2][c+2] == 0) { // down + right
+			board[r-1][c+1] = 0;
+			j = 1 + findjumps(board, type, r-2, c+2);
+			if(j > maxj) maxj = j;
+		}
+	}
+	return maxj;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+11
+               Read    Num
+A  DC   1   Start    LOAD        Num
+SUB    =1      BE     Rslt
+Store   Num     Load     A    ADD         =2
+STORE A     BU  Start
+Rslt END 
+
+3
+Read input lOAD input  Top           Sub =1
+BE   done    SToRE   Answer  bu  Top    done    
+end
+
+10
+LOAD value                     SUB num    Bl low    equal
+LoaD   value    add     num       bG     high   low   Load
+value   SUB    value          BE equal   high  Store   ans   Print
+    ans   end    value dc
+45        num DC    47
+
+14
+LOAD Aval Sub bValue Store Ans bu lbl3 l2 LOAD Aval Add bValue Store Ans bu printIt lbl3 load bValue Mult Aval store ans BU l2 done end printIt print ans BU done Aval dc 5 bValue dc 3
+
+4
+LOAD   aX
+DIV Byz      store aX     Top  LOAD aX   div
+Byz   STORE aX          LOAD
+number       Sub    =2   STORE number      BG     Top        PRINT  number      
+END     Ax    dc
+31      Byz  DC  2   number
+DC  10
+
+15
+factor      DC       2    num     DC 
+288     count
+dc     0           Top    LOAD num
+DIV  factor     store    num
+LOAD count     SUB =1   Store   count   BE
+     Part     LOAD      factor          ADD      =1       STORE
+factor     BU Top     Part   LOAD count    print   count          END
+
+10
+start     dc     10    part    DC    2        stop
+DC         5    Start
+LOAD   start     SUB     part      BG Part
+  LOAD      part       MULT          stop
+    BL       Stop    Part         LOAD     start
+add      stop     BE  Start    Stop
+LOAD start   DIV part   store     stop     PRINT    stop    END
+
+7
+     minimum    dc 10000   top      read number
+load number be stop sub
+    minimum     bl  change  stop
+print    minimum      end    change
+    store       minimum      bu    top
+
+6
+CX    dc    2   Num    Dc
+   288    TOP   Load    Num
+div  CX  Mult  CX      Store
+   X   Load   Num
+SUB   X     BE   PART   LOAD CX    Add
+=1       Store    CX   BU
+TOP   PART   Print     CX
+Load   Num
+sub        CX   be     TOP    Load    Num   DIV   CX   Store    Num
+bu    TOP    Stop
+          End
+
+22
+CNT dc 10    MAXI dc
+0   load     =0   store     TOTAL   Start    read     VAL  load
+TOTAL   add    VAL   store     TOTAL   load    CNT    sub     =1
+store     CNT     load     VAL    sub    MAXI   bu 
+Start     Next    load   TOTAL     div   CNT   store      AVG
+print      AVG     bg       Final      Stop      
+end      Final     print    MAXI    bu        Stop
+

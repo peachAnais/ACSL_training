@@ -1,0 +1,33 @@
+REM Gordan Krekovic
+REM XV GIMNAZIJA
+REM JUNIOR DIVISION
+REM Contest #3
+CLS
+DIM n AS DOUBLE
+m$ = "": nn$ = ""
+FOR i = 1 TO 5
+        INPUT "", n
+        brr = 0
+        DO
+                brr = brr + 1
+                nn$ = LTRIM$(RTRIM$(STR$(n)))
+                br = LEN(nn$)
+                FOR j = 1 TO LEN(nn$)
+                        IF MID$(nn$, j, 1) <> MID$(nn$, br, 1) THEN GOTO preskok
+                        br = br - 1
+                NEXT
+                EXIT DO
+preskok:
+                m$ = ""
+                FOR j = 1 TO LEN(nn$)
+                        m$ = MID$(nn$, j, 1) + m$
+                NEXT
+                n = VAL(m$) + VAL(nn$)
+                IF brr = 10 THEN PRINT "NONE,"; : EXIT DO
+        LOOP
+        PRINT n
+NEXT
+END
+
+
+

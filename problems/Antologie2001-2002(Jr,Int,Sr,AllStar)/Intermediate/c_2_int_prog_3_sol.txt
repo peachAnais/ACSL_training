@@ -1,0 +1,82 @@
+// Kevin Tom
+// ACSL Intermediate
+// Teacher: Reg Hahne
+// Atholton High School
+// Columbia, MD 21044
+
+#include <fstream.h>
+#include <apvector.h>
+#include <apmatrix.h>
+
+int main ()
+{
+	int x = 0, y = 0, xpos = 0, ypos = 0,
+		checkNum = 0, jumps = 0;
+	bool king = false;
+	apmatrix <bool> board (10, 10, false);
+
+	ifstream in ("e:checkers.txt");
+	ofstream out ("con");
+
+	for (int z = 0; z < 5; z++)
+	{
+		in >> xpos >> ypos >> checkNum;
+		for (int a = 1; a <= checkNum; a++)
+		{
+			in >> x >> y;
+			board [x][y] = true;
+		}
+
+	for (int y = 0; y < checkNum; y++)
+	{
+	if ((board [xpos + 1][ypos + 1] == true) &&
+		(king == false))
+	{
+		if (board [xpos + 2][ypos + 2] == false)
+		{
+		board [xpos][ypos] = false;
+		board [xpos + 1][ypos + 1] = false;
+		xpos += 2; ypos += 2; jumps++;
+		if (xpos == 8)
+			king = true;
+		}
+	}
+	else if ((board [xpos + 1][ypos - 1] == true) &&
+		     (king == false))
+	{
+		if (board [xpos + 2][ypos - 2] == false)
+		{
+		board [xpos][ypos] = false;
+		board [xpos + 1][ypos - 1] = false;
+		xpos += 2; ypos -= 2; jumps++;
+		if (xpos == 8)
+			king = true;
+		}
+	}
+	else if ((king == true) &&
+		     (board [xpos - 1] [ypos - 1] == true))
+	{
+		if (board [xpos - 2] [ypos - 2] == false)
+		{
+		xpos -= 2; ypos -= 2; jumps++;
+		}
+	}
+	else if ((king == true) &&
+		     (board [xpos - 1] [ypos + 1] == true))
+	{
+		if (board [xpos - 2][ypos + 2] == false)
+		{
+		xpos -= 2; ypos += 2; jumps++;
+		}
+	}
+	}
+
+	out << jumps << endl;
+	for (x = 1; x < 9; x++)
+		for (y = 1; y < 9; y++)
+			board [x][y] = false;
+	jumps = 0; king = false;
+	}
+	return 0;
+}
+

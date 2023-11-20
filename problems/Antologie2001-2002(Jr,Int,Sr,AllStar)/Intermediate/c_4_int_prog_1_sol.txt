@@ -1,0 +1,56 @@
+'TOMISLAV ZUPAN
+'XV. GIMNAZIJA
+'INTERMEDIATE DIVISION
+'CONTEST #4
+
+CLS
+FOR j = 1 TO 5
+  koefYna2 = 0
+  koefXna2 = 0
+  koefX = 0
+  koefY = 0
+  koef = 0
+  x = 0
+  y = 0
+  INPUT "equation: ", eq$
+  IF LEFT$(eq$, 1) = "-" THEN  ELSE eq$ = "+" + eq$
+  FOR i = 1 TO LEN(eq$)
+    IF MID$(eq$, i, 3) = "y^2" THEN
+      IF MID$(eq$, i - 1, 1) = "+" THEN koefYna2 = 1 ELSE IF MID$(eq$, i - 1, 1) = "-" THEN koefYna2 = -1 ELSE IF MID$(eq$, i - 2, 1) = "+" OR MID$(eq$, i - 2, 1) = "2" THEN koefYna2 = VAL(MID$(eq$, i - 2, 2)) ELSE koefYna2 = VAL(MID$(eq$, i - 3, 3))
+    END IF
+    IF MID$(eq$, i, 3) = "x^2" THEN
+      IF MID$(eq$, i - 1, 1) = "+" THEN koefXna2 = 1 ELSE IF MID$(eq$, i - 1, 1) = "-" THEN koefXna2 = -1 ELSE IF MID$(eq$, i - 2, 1) = "+" OR MID$(eq$, i - 2, 1) = "2" THEN koefXna2 = VAL(MID$(eq$, i - 2, 2)) ELSE koefXna2 = VAL(MID$(eq$, i - 3, 3))
+    END IF
+    IF MID$(eq$, i, 1) = "y" THEN
+      IF MID$(eq$, i + 1, 1) = "^" THEN
+      ELSE
+        IF MID$(eq$, i - 2, 1) = "+" OR MID$(eq$, i - 2, 1) = "-" THEN koefY = VAL(MID$(eq$, i - 2, 2)) ELSE koefY = VAL(MID$(eq$, i - 3, 3))
+      END IF
+    END IF
+    IF MID$(eq$, i, 1) = "x" THEN
+      IF MID$(eq$, i + 1, 1) = "^" THEN
+      ELSE
+        IF MID$(eq$, i - 2, 1) = "+" OR MID$(eq$, i - 2, 1) = "-" THEN koefX = VAL(MID$(eq$, i - 2, 2)) ELSE koefX = VAL(MID$(eq$, i - 3, 3))
+      END IF
+    END IF
+    IF MID$(eq$, i, 1) = "=" THEN
+        IF MID$(eq$, i - 2, 1) = "+" OR MID$(eq$, i - 2, 1) = "-" THEN koef = VAL(MID$(eq$, i - 2, 2)) ELSE IF MID$(eq$, i - 3, 1) = "+" OR MID$(eq$, i - 3, 1) = "-" THEN koef = VAL(MID$(eq$, i - 3, 3)) ELSE koef = VAL(MID$(eq$, i - 4, 4))
+      END IF
+  NEXT i
+  IF MID$(eq$, LEN(eq$) - 1, 1) = "=" AND MID$(eq$, LEN(eq$) - 2, 1) = "x" THEN koef = 0
+  IF MID$(eq$, LEN(eq$) - 1, 1) = "=" AND MID$(eq$, LEN(eq$) - 2, 1) = "y" THEN koef = 0
+  IF MID$(eq$, LEN(eq$) - 1, 1) = "=" AND MID$(eq$, LEN(eq$) - 4, 3) = "y^2" THEN koef = 0
+  x = (koefX / koefXna2) / 2
+  y = (koefY / koefYna2) / 2
+  r = x ^ 2 * koefXna2 + y ^ 2 * koefYna2 + (-koef)
+  IF koefXna2 <> koefYna2 THEN
+    xaxis = 2 * SQR(ABS(r / koefXna2))
+    yaxis = 2 * SQR(ABS(r / koefYna2))
+    IF xaxis >= yaxis THEN axis = xaxis ELSE axis = yaxis
+    PRINT "ELIPSE, ("; -x; ","; -y; "),"; axis
+  END IF
+  IF koefXna2 = koefYna2 THEN PRINT "CIRCLE, ("; -x; ","; -y; "),"; SQR(ABS(r))
+NEXT j
+
+
+

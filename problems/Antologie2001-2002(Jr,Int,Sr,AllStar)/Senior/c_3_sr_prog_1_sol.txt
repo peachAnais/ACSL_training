@@ -1,0 +1,64 @@
+{ ACSL 2001-02 Senior Contest #3 "Palindrome }
+{ David Zhang, Woburn CI }
+
+const cow : array[0..15] of char = '0123456789ABCDEF';
+
+var
+  s : string;
+  m : byte;
+  z, z2 : array[1..100] of byte;
+  n : byte;
+  i : byte;
+  c : byte;
+  t : byte;
+
+function checkit : boolean;
+var i : byte;
+begin
+  for i := 1 to n div 2 do
+    if z[i] <> z[n - i + 1] then begin
+      checkit := false;
+      exit;
+    end;
+  checkit := true;
+end;
+
+procedure printit;
+var i : byte;
+begin
+  for i := n downto 1 do write(cow[z[i]]);
+  writeln;
+end;
+
+begin
+for t := 1 to 5 do begin
+  readln(s);
+  readln(m);
+  n := length(s);
+  fillchar(z, sizeof(z), 0);
+  for i := n downto 1 do
+    if s[i] in ['0'..'9'] then z[n - i + 1] := ord(s[i]) - 48
+    else z[n - i + 1] := ord(s[i]) - 55;
+  c := 0;
+  while true do begin
+    if checkit then begin
+      printit;
+      break;
+    end else if c >= 10 then begin
+      write('NONE, ');
+      printit;
+      break;
+    end;
+    z2 := z;
+    for i := 1 to n do inc(z[i], z2[n - i + 1]);
+    for i := 1 to n do begin
+      inc(z[i + 1], z[i] div m);
+      z[i] := z[i] mod m;
+    end;
+    if z[n + 1] <> 0 then inc(n);
+    inc(c);
+  end;
+end;
+readln;
+end.
+

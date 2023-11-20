@@ -1,0 +1,47 @@
+REM Brad Orleck
+REM Cranston High School East
+REM Intermediate Division-3
+REM Contest 1 - Wrap Around Code
+
+34 CLS
+w = 1
+
+INPUT l$
+20 l = ASC(l$)
+nn = l - 64
+
+IF nn <= 5 THEN x = nn * 2: REM a's to e's
+IF nn > 5 AND nn <= 10 THEN x = (nn MOD 3) * 5: REM f through j
+IF nn > 10 AND nn <= 15 THEN x = INT(nn / 4) * 8: REM k to o
+
+IF nn > 15 AND nn <= 20 THEN
+t = INT(nn / 10)
+u = nn - (t * 10)
+x = (t + u) * 10
+REM p to t
+END IF
+
+IF nn > 20 AND nn <= 26 THEN
+REM u to z
+FOR i = 1 TO nn / 2
+a = nn MOD i
+IF a = 0 THEN e = i
+NEXT
+x = e * 12
+END IF
+
+w = ((w + x) MOD 26) + 64
+c$ = CHR$(w)
+PRINT c$
+
+w = w - 64
+
+INPUT l$
+IF l$ = "$" THEN 30
+GOTO 20
+30 INPUT "Another?", f$
+IF f$ = "y" THEN 34
+
+
+
+

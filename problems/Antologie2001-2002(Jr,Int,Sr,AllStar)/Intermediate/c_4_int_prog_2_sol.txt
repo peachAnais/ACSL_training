@@ -1,0 +1,131 @@
+//Weymouth High School
+//Contest #4 - Intermediate 5 Division
+//Written by Steven Robbins
+
+#include <iostream.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+    int x, n, a = 0, A, C, D, E, F, G, num, miss_x, miss_y, axis, radius;
+    char last, junk, sign;
+
+    for (x = 0; x < 5; x++)
+    {
+        F = 0;
+        G = 0;
+        cout << "Type in the equation that you have:\n";
+        if (cin.peek() == 'x')
+            A = 1;
+        else
+            cin >> A;
+        cin >> junk >> junk >> junk >> sign;
+        if (cin.peek() == 'y')
+        {
+            if (sign == '-')
+                C = -1;
+            else
+                C = 1;
+        }
+        else
+        {
+            if (sign == '-')
+                cin >> -C;
+            else
+                cin >> C;
+        }
+        cin >> junk >> junk >> junk >> sign;
+        if (cin.peek() == 'x')
+        {
+            if (sign == '-')
+                D = -1;
+            else
+                D = 1;
+        }
+        else
+        {
+            cin >> num;
+            if (sign == '-')
+                num = -num;
+            if (cin.peek() == 'x')
+            {
+                D = num;
+                cin >> junk >> sign;
+            }
+            else if (cin.peek() == 'y')
+            {
+                D = 0;
+                E = num;
+                cin >> junk >> F;
+            }
+            else
+            {
+                D = 0;
+                E = 0;
+                F = num;
+                cin >> junk >> junk;
+            }
+        }
+        if (F == 0)
+        {
+            if (cin.peek() == 'y')
+            {
+                if (sign == '-')
+                    E = -1;
+                else
+                    E = 1;
+            }
+            else
+            {
+                cin >> num;
+                if (sign == '-')
+                    num = -num;
+                else
+                    num = num;
+                if (cin.peek() == 'y')
+                {
+                    E = num;
+                    cin >> junk >> F;
+                }
+                else
+                {
+                    E = 0;
+                    F = num;
+                    cin >> junk >> junk;
+                }
+            }
+        }
+        G = -F;
+        F = 0;
+
+        miss_x = D / (2 * A);
+        miss_y = E / (2 * C);
+        G = G + (A * miss_x * miss_x) + (C * miss_y * miss_y);
+
+        if (A == C)
+        {
+            G = G / A;
+            radius = sqrt(G);
+            cout<< "Circle, (" <<-miss_x<< "," <<-miss_y<< "), " <<radius<<endl;
+        }
+        else
+        {
+            A = G / A;
+            C = G / C;
+            if (A > C)
+                axis = sqrt(A) * 2;
+            else // (A < C)
+                axis = sqrt(C) * 2;
+            cout<< "Ellipse, (" <<-miss_x<< "," <<-miss_y<< "), " <<axis<<endl;
+        }
+
+        do {
+            cin.get(last);
+        } while(last !='\n');
+    }
+    return 0;
+}
+
+
+

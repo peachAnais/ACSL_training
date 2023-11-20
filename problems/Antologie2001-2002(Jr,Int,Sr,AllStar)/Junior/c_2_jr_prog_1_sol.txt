@@ -1,0 +1,82 @@
+REM Patrick Detzner
+REM Montgomery Blair Highschool
+REM Junior-5 Division
+REM Contest 2
+
+DIM board(0 TO 9, 0 TO 9)
+FOR x = 1 TO 5
+    MAT board = 0
+    FOR temp = 0 TO 9
+        LET board(0, temp) = 2
+        LET board(temp, 0) = 2
+        LET board(9, temp) = 2
+        LET board(temp, 9) = 2
+    NEXT temp
+    LET ux = 0
+    LET uy = 0
+    LET num = 0
+    LET opx = 0
+    LET opy = 0
+    LET king = 0
+    LET jump = 0
+    PRINT x;".";
+    INPUT prompt "Your location ": uy, ux
+    INPUT prompt"Number of opponent's pieces ": num
+    FOR y = 1 TO num
+        PRINT "Location of opponent's piece "; y;
+        INPUT opy, opx
+        LET board(opx, opy) = 1
+    NEXT y
+    IF uy = 8 THEN LET king = 1
+    CALL determineMove(ux, uy, board(,), jump, king)
+    PRINT jump;
+    IF king = 1 THEN PRINT ", KING";
+    PRINT
+    PRINT
+NEXT x
+END
+
+SUB determineMove (ux, uy, board(,), jump, king)
+    DECLARE FUNCTION maximum
+    DIM tempboard(0 TO 10, 0 TO 9)
+    FOR c = 0 TO 9
+        FOR d = 0 TO 9
+            LET tempboard(c, d) = board(c, d)
+        NEXT d
+    NEXT c
+    IF uy = 8 THEN LET king = 1
+    IF board(ux + 1, uy + 1) = 1 THEN
+       IF board(ux + 2, uy + 2) = 0 THEN
+          LET tempux = ux + 2
+          LET tempuy = uy + 2
+          LET tempboard(ux + 1, uy + 1) = 0
+          LET jump9 = jump9 + 1
+          CALL determineMove(tempux, tempuy, tempboard(,), jump9, king)
+       END IF
+    END IF
+    IF tempuy = 8 THEN LET king = 1
+    FOR c = 0 TO 9
+        FOR d = 0 TO 9
+            LET tempboard(c, d) = board(c, d)
+        NEXT d
+    NEXT c
+    IF board(ux - 1, uy + 1) = 1 THEN
+       IF board(ux - 2, uy + 2) = 0 THEN
+          LET tempux = ux - 2
+          LET tempuy = uy + 2
+          LET tempboard(ux - 1, uy + 1) = 0
+          LET jump7 = jump7 + 1
+          CALL determineMove(tempux, tempuy, tempboard(,), jump7, king)
+       END IF
+    END IF
+    IF tempuy = 8 THEN LET king = 1
+    LET jump = jump + maximum(jump9, jump7)
+END SUB
+
+FUNCTION maximum (n1, n2)
+    LET temp = n1
+    IF n2 >= n1 THEN LET temp = n2
+    LET maximum = temp
+END FUNCTION
+
+

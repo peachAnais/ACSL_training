@@ -1,0 +1,77 @@
+program ACSLWRAP;
+
+(*Mike Alban  12/07/01*)
+(*Junior Division*)
+(*Mount Hebron High School*)
+
+uses wincrt;
+
+var
+  xx: char;
+  yy: integer;
+
+begin
+  for yy:=1 to 5 do
+    begin
+      write('Enter a Letter: ');
+      readln(xx);
+      clrscr;
+      writeln('Input      Output');
+      write(xx,'    ');
+
+      if xx='A' then
+          writeln('      B');
+      if xx='B' then
+          writeln('      D');
+      if xx='C' then
+           writeln('      F');
+      if xx='D' then
+          writeln('      H');
+      if xx='E' then
+          writeln('      J');
+      if xx='F' then
+          writeln('      O');
+      if xx='G' then
+          writeln('      E');
+      if xx='H' then
+          writeln('      J');
+      if xx='I' then
+          writeln('      O');
+      if xx='J' then
+          writeln('      E');
+      if xx='K' then
+          writeln('      P');
+      if xx='L' then
+          writeln('      X');
+      if xx='M' then
+          writeln('      X');
+      if xx='N' then
+          writeln('      X');
+      if xx='O' then
+          writeln('      X');
+      if xx='P' then
+          writeln('      R');
+      if xx='Q' then
+          writeln('      B');
+      if xx='R' then
+          writeln('      L');
+      if xx='S' then
+          writeln('      U');
+      if xx='T' then
+          writeln('      T');
+      if xx='U' then
+          writeln('      F');
+      if xx='V' then
+          writeln('      B');
+       if xx='W' then
+          writeln('      L');
+      if xx='X' then
+          writeln('      N');
+      if xx='Y' then
+          writeln('      H');
+      if xx='Z' then
+          writeln('      Z');
+    end;
+end.
+
+

@@ -1,0 +1,54 @@
+'Hrvoje Samija
+'XV Gimnazija
+'JUNIOR DIVISION
+'CONTEST #4
+DIM a(7)
+FOR q = 1 TO 5
+INPUT a(1), a(2), a(3), a(4), a(5), a(6)
+d = a(1): e = a(3)
+IF a(2) <> 0 THEN GOTO 10
+a(2) = a(4)
+a(4) = a(3)
+a(7) = a(6)
+t = a(6)
+k1 = 1: k2 = 1
+        FOR i = 2 TO a(1)
+                IF a(1) MOD i = 0 AND a(2) MOD i = 0 THEN k1 = i
+        NEXT i
+        FOR i = 2 TO a(4)
+               IF a(4) MOD i = 0 AND a(5) MOD i = 0 THEN k2 = i
+        NEXT i
+a(1) = a(1) / k1: a(2) = a(2) / k1
+a(4) = a(4) / k2: a(5) = a(5) / k2
+a(3) = (a(2) / 2) ^ 2
+a(6) = (a(5) / 2) ^ 2
+a(7) = -t + k1 * (a(2) / 2) ^ 2 + k2 * (a(5) / 2) ^ 2
+k = 1
+IF a(2) < 0 THEN k = -1: a(2) = ABS(a(2))
+x = 0 - k * SQR(a(3))
+k = 1
+IF a(5) < 0 THEN k = -1: a(5) = ABS(a(5))
+y = 0 - k * SQR(a(6))
+z1 = a(7)
+IF a(7) MOD k1 = 0 THEN z1 = a(7) / k1
+z2 = a(7)
+IF a(7) MOD k2 = 0 THEN z2 = a(7) / k2
+
+IF d = e THEN
+        r = SQR(a(7) / k1)
+        PRINT "Circle,(" + STR$(x) + "," + STR$(y) + ")," + STR$(r)
+ELSEIF d <> e THEN
+        IF z1 > z2 THEN
+                r = 2 * SQR(ABS(z1))
+        ELSE
+                r = 2 * SQR(ABS(z2))
+        END IF
+        PRINT "Ellipse,(" + STR$(x) + "," + STR$(y) + ")," + STR$(r)
+END IF
+10 REM
+NEXT q
+
+
+
+
+

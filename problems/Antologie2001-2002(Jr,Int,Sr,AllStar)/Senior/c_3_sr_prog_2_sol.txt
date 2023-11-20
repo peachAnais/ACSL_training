@@ -1,0 +1,57 @@
+/*
+	Name: Andrei Dunca
+	School: "Tiberiu Popoviciu" HS -- ROMANIA
+	Grade: 11
+	Division: Senior 5
+*/
+#include "stdio.h"
+#include "conio.h"
+#include "mem.h"
+int m[9][9],dx[]={2,2,-2,-2},dy[]={-2,2,-2,2},max;
+
+void go(int i,int x,int y,int ndir) {
+	for(int dir=0;dir<ndir;dir++) {
+		int xnou=x+dx[dir], ynou=y+dy[dir];
+		if(xnou<1 || xnou>8 || ynou<1 || ynou>8) continue;
+		if(m[(x+xnou)/2][(y+ynou)/2]!=-1 || m[xnou][ynou]!=0) continue;
+		if(max<i) max=i;
+		m[(x+xnou)/2][(y+ynou)/2]=0;
+		m[x][y]=0;
+		m[xnou][ynou]=1;
+		if(xnou==8) go(i+1,xnou,ynou,4);
+		else go(i+1,xnou,ynou,ndir);
+		m[(x+xnou)/2][(y+ynou)/2]=-1;
+		m[x][y]=1;
+		m[xnou][ynou]=0;
+	}
+}
+void main() {
+	for(int input=0;input<5;input++) {
+		printf("Input %d: ",input+1);
+		//initialization
+		int neu,nel,eux[33],euy[33],x,y,i,j,k;
+		for(i=1;i<9;i++) memset(m[i],0,18);
+		//read
+		scanf("%d%*[, ]",&neu);
+		for(i=0;i<neu;i++) {
+			scanf("%d%*[, ]%d%*[, ]",&x,&y);
+			m[x][y]=1;
+			eux[i]=x, euy[i]=y;
+		}
+		scanf("%d",&nel);
+		for(i=0;i<nel;i++) {
+			scanf("%*[, ]%d%*[, ]%d",&x,&y);
+			m[x][y]=-1;
+		}
+		getc(stdin);
+		//work on it
+		max=0;
+		for(i=0;i<neu;i++) {
+			if(eux[i]==8) go(1,eux[i],euy[i],4);
+			else go(1,eux[i],euy[i],2);
+		}
+		//write
+		printf("Output %d: %d\n",input+1,max);
+	}
+}
+

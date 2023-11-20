@@ -1,0 +1,70 @@
+{Matt Glockner
+ Paul G. Blazer High School
+ Intermediate Division
+ Contest #1}
+
+program wraparound;
+var letter:char;
+    position,num,x:integer;
+begin
+
+x:=0;
+position:=1;
+
+while x<5 do
+begin
+
+writeln('Enter an upper case letter:');
+readln(letter);
+num:=(ord(letter))-64;
+
+if (letter='$') then
+begin
+x:=x+1;
+position:=1;
+end;
+
+if (num>=1) and (num<=5) then
+begin
+position:= (position + (num * 2)) mod 26;
+writeln('The encoded letter is ', chr(position + 64) ,'.');
+end;
+
+if (num>=6) and (num<=10) then
+begin
+position:= (position + ((num mod 3) * 5)) mod 26;
+writeln('The encoded letter is ', chr(position + 64) ,'.')
+end;
+
+if (num>=11) and (num<=15) then
+begin
+position:= (position + ((num div 4) * 8)) mod 26;
+writeln('The encoded letter is ', chr(position + 64) ,'.');
+end;
+
+if (num>=16) and (num<=20) then
+begin
+position:= (position + (((num div 10)+(num mod 10)) * 10)) mod 26;
+writeln('The encoded letter is ', chr(position + 64) ,'.');
+end;
+
+if (num>=21) and (num<=26) then
+begin
+if (num mod 2 = 0) then
+position:= (position + (num * 6)) mod 26;
+if (num = 21) then
+position:= (position + 84) mod 26;
+if (num = 23) then
+position:= (position + 12) mod 26;
+if (num = 25) then
+position:= (position + 60) mod 26;
+writeln('The encoded letter is ', chr(position + 64) ,'.');
+end;
+
+end;
+end.
+
+
+
+
+

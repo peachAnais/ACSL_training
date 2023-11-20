@@ -1,0 +1,53 @@
+REM Tony DiSarro
+Rem Senior 3 Antietam High School
+REM Wrap Around Code
+FOR n=1 to 5
+    LET out$=""
+    LET thing=1
+    LET sent=0
+    DO
+       INPUT a$
+       IF a$<>"$" then
+          INPUT b
+          LET value=ord(ucase$(a$))+1-ord("A")
+          SELECT CASE B
+          CASE 1
+               LET temp=value*2
+          CASE 2
+               LET temp=mod(value,3)*5
+          CASE 3
+               LET temp=ip(value/4)*(-8)
+          CASE 4
+               LET temp=truncate(sqr(value),0)*(-12)
+          CASE 5
+               LET temp=0
+               FOR x=1 to value
+                   IF value/x=int(value/x) then LET temp=temp+x
+               NEXT x
+               LET temp=temp*10
+          END SELECT
+          LET thing=thing+temp
+          DO
+             IF thing>26 then
+                LET thing=(thing-26)
+             ELSE
+                LET sen=3
+             END IF
+          LOOP until sen=3
+          DO
+             IF thing<1 then
+                LET thing=27-(1-thing)
+             ELSE
+                LET sen=4
+             END IF
+          LOOP until sen=4
+          LET OUT$=OUT$&CHR$(thing+ord("A")-1)
+       ELSE
+          LET sent=3
+       END IF
+    LOOP until sent=3
+    PRINT "'"&out$&"'"
+NEXT n
+END
+
+

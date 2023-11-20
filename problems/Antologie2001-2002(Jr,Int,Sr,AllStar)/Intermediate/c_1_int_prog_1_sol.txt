@@ -1,0 +1,88 @@
+// Ryan Faulkingham
+// Atholton High School
+// Intermediate Contest #1
+// Reg Hahne
+
+# include <fstream.h>
+
+void wrap (char ch, int number, bool counter, int temp, int factor);
+
+ifstream in ("a:wrapint.txt");
+
+int main ()
+{
+	char ch;
+	bool counter;
+	int number;
+	int temp;
+	int factor;
+
+	for (int loop = 1; loop < 6; loop++)
+	{
+		counter = true;
+		number = temp = 0;
+		factor = 25;
+		wrap (ch, number, counter, temp, factor);
+		cout << endl;
+	}
+
+	return 0;
+}
+
+void wrap (char ch, int number, bool counter, int temp, int factor)
+{
+	in >> ch;
+
+	while (ch != '$')
+	{
+		number = ((int) ch - 64);
+		if ((0 < number) && (number < 6))
+		{
+			number *= 2;
+		}
+		else if ((5 < number) && (number < 11))
+			number = (number % 3) * 5;
+ 		else if ((10 < number) && (number < 16))
+		{
+			(int) number = number / 4;
+			(int) number *= 8;
+		}
+		else if ((15 < number) && (number < 21))
+		{
+			if (number == 16)
+				number = 70;
+			else if (number == 17)
+				number = 80;
+			else if (number == 18)
+				number = 90;
+			else if (number == 19 )
+				number = 100;
+			else if (number == 20)
+				number = 20;
+		}
+		else if ((20 < number) && (number < 27))
+		{
+			while (counter == true)
+			{
+				if (((number % factor) == 0) && (number != factor))
+				{
+					number = factor * 12;
+					counter = false;
+				}
+				else factor--;
+			}
+		}
+		number += temp;
+		temp = number;
+		number += 65;
+		while (number > 90)
+			number -= 26;
+		cout << (char) number << " ";
+		in >> ch;
+	}
+}
+
+	
+
+		
+

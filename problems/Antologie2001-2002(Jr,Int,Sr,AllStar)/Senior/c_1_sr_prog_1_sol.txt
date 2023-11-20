@@ -1,0 +1,28 @@
+/* Dan Arlow
+ * Senior 3
+ * Cranbrook Kingswood
+ * Bloomfield Hills, MI
+ */
+
+#include <stdio.h>
+#include <math.h>
+
+int rule1(int x) { return  x<<1; }
+int rule2(int x) { return  5 * (x%3); }
+int rule3(int x) { return -8 * (x>>2); }
+int rule4(int x) { return -12 * (int)(sqrt(x)); }
+int rule5(int x) { int c, t=0; for(c=1; c<=x; c++) if(x%c == 0) t+=c; return 10*t; }
+
+int (*rules[5])(int) = { rule1, rule2, rule3, rule4, rule5 };
+
+int main(void)
+{
+   char c;
+   unsigned r, x, i;
+
+   for(i=0; i<5; i++,scanf("%c",&c),printf("\n")) for(x=1;scanf("%c,%d,",&c,&r)==2;) printf("%c",(x=(2600+x+(*(rules+r-1))(c-64))%26)+64);
+
+   return 0;
+}
+
+

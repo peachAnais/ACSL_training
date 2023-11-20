@@ -1,0 +1,113 @@
+{NAME     : OPREA CRISTIAN-IONUT
+ GRADE    : 11 F
+ SCHOOL   : HIGHSCHOOL "TIBERIU POPOVICIU", CLUJ-NAPOCA, ROMANIA
+ DIVISION : SENIOR }
+
+TYPE ADRS=^ELEM;
+     ELEM=RECORD LIT:CHAR;
+                 PRE,URM:ADRS;
+                 END;
+
+var a,K,input:integer;
+    R,l:array[1..100]of char;
+    c:char;rez:string;
+    i,j:byte;   FIRST,LAST,p:ADRS;
+
+procedure creare;
+begin
+new(first);new(last);
+first^.pre:=last;
+first^.urm:=last;
+last^.pre:=first;
+last^.urm:=first;
+first^.lit:='A';
+last^.lit:='Z';
+K:=1;
+repeat
+c:=chr(k+65);
+k:=k+1;
+new(p);
+p^.lit:=c;
+p^.pre:=last^.pre;
+p^.urm:=last;
+last^.pre^.urm:=p;
+last^.pre:=p;
+until k=25;
+
+
+end;
+
+
+procedure rule1(VAR a:integer);
+begin
+a:=a*2;
+end;
+
+procedure rule2(VAR a:integer);
+begin
+a:=a mod 3 ;
+a:=a * 5 ;
+end;
+
+procedure rule3(VAR a:integer);
+begin
+a:=a div 4 ;
+a:=-8*a;
+end;
+
+procedure rule4(var a:integer );
+var b:real;
+begin
+b:=sqrt(a);
+a:=trunc(b);
+a:=-12*a;
+end;
+
+procedure rule5(var a:integer);
+var d,n:byte;
+begin
+n:=a;
+for  d:=1 to (n DIV 2)  do
+if (N mod d = 0) then a:=a+d;
+A:=A*10;
+end;
+
+begin
+creare;
+for input:=1 to 5 do
+begin writeln('#Input ',input,':');
+i:=1;j:=1;
+read(c);
+repeat
+if (ord(c)<=53)and(ord(c)>=49)
+    then begin r[i]:=c;i:=i+1;
+         end
+    else if((ord(c)<=90)and(ord(c)>=65)) then begin l[j]:=c;j:=j+1;
+         end;
+read(c);
+until c='$';
+REZ:='';
+p:=first;
+for i:=1 to j-1 do
+begin
+    a:=ord(l[i])-64;
+    case r[i] of
+    '1': rule1(a);
+    '2': rule2(a);
+    '3': rule3(a);
+    '4': rule4(a);
+    '5': rule5(a);
+    end;
+if a>0 then  while a<>0 do
+             begin p:=p^.urm;
+                   a:=a-1;end
+       else  while a<>0 do
+             begin p:=p^.pre;
+                   a:=a+1;end;
+
+rez:=rez+p^.lit;
+end;
+writeln('#Output',INPUT,': ',rez);
+end;
+end.
+
